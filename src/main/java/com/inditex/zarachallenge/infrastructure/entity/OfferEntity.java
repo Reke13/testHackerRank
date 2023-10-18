@@ -1,29 +1,30 @@
 package com.inditex.zarachallenge.infrastructure.entity;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Builder;
+import jakarta.persistence.Table;
 import lombok.Data;
 import shaded_package.com.sun.istack.NotNull;
 
 @Entity
+@Table(name = "OFFER")
 @Data
-@Builder
 public class OfferEntity {
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  @Column(name="ID")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private int id;
-  @Column(name="VALID_FROM")
-  private Timestamp validForm;
-  @Column(name="PRICE")
-  private Number price;
+  @Column(name = "VALID_FROM")
+  private Instant validForm;
+  @Column(name = "PRICE")
+  private BigDecimal price;
   @NotNull
-  @Column(name="PRODUCT_ID")
+  @Column(name = "PRODUCT_ID")
   private int productId;
 }

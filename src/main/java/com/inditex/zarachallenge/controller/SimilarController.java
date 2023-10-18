@@ -1,31 +1,37 @@
 package com.inditex.zarachallenge.controller;
 
+import java.time.Instant;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inditex.zarachallenge.infrastructure.entity.ProductEntity;
-import com.inditex.zarachallenge.infrastructure.repository.ProductRepository;
+import com.inditex.zarachallenge.infrastructure.model.CustomSimilarProduct;
+import com.inditex.zarachallenge.infrastructure.repository.SimilarProductRepository;
 
 @RestController
 @RequestMapping("/product")
 public class SimilarController {
 
-	private final ProductRepository productRepository;
-	public SimilarController(final ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
+  private final SimilarProductRepository similarProductRepository;
 
-	@GetMapping("/{productId}")
-	public ResponseEntity<ProductEntity> getProduct(@PathVariable Integer productId) {
-		return ResponseEntity.ok(this.productRepository.findById(productId).orElse(null));
-	}
+  public SimilarController(final SimilarProductRepository similarProductRepository) {
+    this.similarProductRepository = similarProductRepository;
+  }
 
-	@GetMapping("/{productId}/similar")
-	public ResponseEntity<Integer> getProductSimilarid(@PathVariable Integer productId) {
-		System.out.println("productId:" + productId);
-		return ResponseEntity.ok(productId);
-	}
+  @Value("${date}")
+  private Instant date;
+
+  @GetMapping("/{productId}/similar")
+  public ResponseEntity<List<CustomSimilarProduct>> getProductSimilarid(@PathVariable Integer productId) {
+
+    List<CustomSimilarProduct> similarProductList = this.similarProductRepository
+        .findByProductIdWithOfferDate(productId, date);
+
+    return ResponseEntity.ok(similarProductList);
+  }
 }
