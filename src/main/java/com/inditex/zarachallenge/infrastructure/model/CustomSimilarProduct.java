@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Generated;
 
-@Builder
 @Data
 @AllArgsConstructor
+@Generated
 public class CustomSimilarProduct implements Serializable {
 
   private int id;

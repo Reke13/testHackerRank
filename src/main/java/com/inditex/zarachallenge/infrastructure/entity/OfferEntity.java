@@ -10,11 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Generated;
 import shaded_package.com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "OFFER")
 @Data
+@Generated
 public class OfferEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

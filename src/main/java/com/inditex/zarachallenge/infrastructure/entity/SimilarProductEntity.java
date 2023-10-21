@@ -10,10 +10,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Generated;
 
 @Entity
 @Table(name = "SIMILARS_PRODUCT")
 @Data
+@Generated
 public class SimilarProductEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
