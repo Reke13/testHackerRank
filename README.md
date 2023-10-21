@@ -4,7 +4,7 @@ This is an application for Zara that searches for product similarities.
 
 ## Prerequisites
 
-- Java 8 or higher
+- Java 17 or higher
 - Maven
 
 ## Configuration
