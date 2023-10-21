@@ -1,9 +1,7 @@
 package com.inditex.zarachallenge.controller;
 
-import java.time.Instant;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,26 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inditex.zarachallenge.infrastructure.model.CustomSimilarProduct;
-import com.inditex.zarachallenge.infrastructure.repository.SimilarProductRepository;
+import com.inditex.zarachallenge.spi.SimilarProductService;
 
 @RestController
 @RequestMapping("/product")
 public class SimilarController {
 
-  private final SimilarProductRepository similarProductRepository;
+  private final SimilarProductService similarProductService;
 
-  public SimilarController(final SimilarProductRepository similarProductRepository) {
-    this.similarProductRepository = similarProductRepository;
+  public SimilarController(final SimilarProductService similarProductService) {
+    this.similarProductService = similarProductService;
   }
-
-  @Value("${date}")
-  private Instant date;
 
   @GetMapping("/{productId}/similar")
   public ResponseEntity<List<CustomSimilarProduct>> getProductSimilarid(@PathVariable Integer productId) {
 
-    List<CustomSimilarProduct> similarProductList = this.similarProductRepository
-        .findByProductIdWithOfferDate(productId, date);
+    List<CustomSimilarProduct> similarProductList = this.similarProductService.findSimilarProducts(productId);
 
     return ResponseEntity.ok(similarProductList);
   }
