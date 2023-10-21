@@ -52,4 +52,10 @@ class SimilarControllerTest {
         .andReturn().getResponse().getContentAsString();
   }
 
+  @Test
+  void testControllerAdvice() throws Exception {
+    mockMvc.perform(get(URL, 4529)).andExpect(status().is(HttpStatus.NOT_FOUND.value()))
+        .andExpect(jsonPath("$.code").value("ERR00001"));
+  }
+
 }
